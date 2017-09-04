@@ -16,10 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('tracks', 'TracksController@index');
 Route::get('tracks/{track}', 'TracksController@get');
-Route::get('account/{user}','AccountController@getAccountInfo');
 
 Route::middleware('auth:api')->group(function () {
-
+    Route::get('account/{user}','AccountController@getAccountInfo');
     Route::post('tracks', 'TracksController@store');
     Route::put('tracks/{track}', 'TracksController@update');
     Route::delete('tracks/{track}', 'TracksController@delete');
