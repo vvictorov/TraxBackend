@@ -9,7 +9,15 @@ class TracksController extends Controller
 {
     public function index()
     {
-        return Track::all();
+        $tracks = Track::with('user')->get();
+        $response = [];
+        foreach ($tracks as $track){
+            $user = $track->user->only(['id','name']);
+            unset($track->user);
+            $track->user = $user;
+            $response[] = $track;
+        }
+        return $response;
     }
 
     public function get(Track $track)

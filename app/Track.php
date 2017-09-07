@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Track extends Model
 {
     protected $fillable = ['name','user_id'];
-    protected $with = ['user','audio','image'];
+    protected $with = ['audio','image'];
 
     public function __construct(array $attributes = [])
     {

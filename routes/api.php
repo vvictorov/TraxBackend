@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('tracks', 'TracksController@index');
 Route::get('tracks/{track}', 'TracksController@get');
+Route::post('users/authenticate', 'AuthController@authenticate');
 
 Route::middleware('auth:api')->group(function () {
     Route::get('account/{user}','AccountController@getAccountInfo');
