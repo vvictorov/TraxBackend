@@ -54,7 +54,18 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-
+        'audio' => [
+            'driver' => 'local',
+            'root' => storage_path('audio'),
+            'url' => env('APP_URL').'/storage/audio',
+            'visibility' => 'public',
+        ],
+        'images' => [
+            'driver' => 'local',
+            'root' => storage_path('images'),
+            'url' => env('APP_URL').'/storage/images',
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_KEY'),

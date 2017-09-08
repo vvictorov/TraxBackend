@@ -10,14 +10,19 @@ class TracksController extends Controller
     public function index()
     {
         $tracks = Track::with('user')->get();
-        $response = [];
-        foreach ($tracks as $track){
+        for ($i = 0; $i < $tracks->count(); $i++) {
+            $track = $tracks[$i];
             $user = $track->user->only(['id','name']);
-            unset($track->user);
+            $audio_url = $track->audio->url();
+            $image_url = $track->image->url();
+            unset($track->user, $track->image, $track->audio);
+            $track->audio = new \stdClass();
+            $track->image = new \stdClass();
+            $track->audio->url = $audio_url;
+            $track->image->url = $image_url;
             $track->user = $user;
-            $response[] = $track;
         }
-        return $response;
+        return $tracks;
     }
 
     public function get(Track $track)
