@@ -19,7 +19,7 @@ class AuthController extends Controller
                 $user->token =  $user->createToken('accessToken')->accessToken;
                 return $user;
             }else{
-                return 'auth failed';
+                return response('Login failed! Please check your credentials!',400);
             }
         }
     }

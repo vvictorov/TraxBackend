@@ -28,4 +28,9 @@ class Track extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function usersFavorite()
+    {
+        return $this->belongsToMany('App\User','user_favorites');
+    }
 }
