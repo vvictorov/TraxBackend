@@ -37,6 +37,35 @@ class TracksController extends Controller
         return $tracks;
     }
 
+    public function suggested()
+    {
+        //TODO get suggested tracks by tags etc.
+        $tracks = Track::with('user')->limit(12)->get();
+        $user = Auth::guard('api')->user();
+        $favorites = [];
+        if($user){
+            $favorites = UserFavorite::where('user_id',$user->id)->get()->pluck('track_id')->toArray();
+        }
+        for ($i = 0; $i < $tracks->count(); $i++) {
+            $track = $tracks[$i];
+            $user = $track->user->only(['id','name']);
+            $audio_url = $track->audio->url();
+            $image_url = $track->image->url();
+            unset($track->user, $track->image, $track->audio);
+            if(!empty($favorites) && in_array($track->id,$favorites)){
+                $track->favorite = true;
+            }else{
+                $track->favorite = false;
+            }
+            $track->audio = new \stdClass();
+            $track->image = new \stdClass();
+            $track->audio->url = $audio_url;
+            $track->image->url = $image_url;
+            $track->user = $user;
+        }
+        return $tracks;
+    }
+
     public function get(Track $track)
     {
         return $track;
