@@ -169,6 +169,7 @@ return [
 
         Barryvdh\Cors\ServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        \App\Providers\WaveformServiceProvider::class,
 
         /*
          * Application Service Providers...

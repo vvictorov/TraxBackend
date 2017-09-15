@@ -18,6 +18,9 @@ Route::get('tracks', 'TracksController@index');
 Route::get('suggested', 'TracksController@suggested');
 Route::get('tracks/{track}', 'TracksController@get');
 Route::post('users/authenticate', 'AuthController@authenticate');
+//Route::get('waveforms/test',function(){
+//    echo \BoyHagemann\Waveform\Waveform::fromFilename('D:/other-projects/TraxBackend/storage/app/public/audio/1.mp3');
+//});
 
 Route::middleware('auth:api')->group(function () {
     Route::get('account/{user}','AccountController@getAccountInfo');
