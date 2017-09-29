@@ -12,10 +12,17 @@ class TracksController extends Controller
     public function index()
     {
         $tracks = Track::with('user')->get();
+        return $this->formatTracksResponse($tracks);
+    }
+
+    public function suggested()
+    {
+        //TODO get suggested tracks by tags etc.
+        $tracks = Track::with('user')->limit(12)->get();
         $user = Auth::guard('api')->user();
         $favorites = [];
         if($user){
-          $favorites = UserFavorite::where('user_id',$user->id)->get()->pluck('track_id')->toArray();
+            $favorites = UserFavorite::where('user_id',$user->id)->get()->pluck('track_id')->toArray();
         }
         for ($i = 0; $i < $tracks->count(); $i++) {
             $track = $tracks[$i];
@@ -37,10 +44,8 @@ class TracksController extends Controller
         return $tracks;
     }
 
-    public function suggested()
+    public function formatTracksResponse($tracks)
     {
-        //TODO get suggested tracks by tags etc.
-        $tracks = Track::with('user')->limit(12)->get();
         $user = Auth::guard('api')->user();
         $favorites = [];
         if($user){
@@ -87,5 +92,11 @@ class TracksController extends Controller
     {
         $track->delete();
         return response()->json(null, 204);
+    }
+
+    public function search(Request $request, $name)
+    {
+        $tracks = Track::search($name)->get();
+        return $this->formatTracksResponse($tracks);
     }
 }

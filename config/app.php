@@ -170,6 +170,7 @@ return [
         Barryvdh\Cors\ServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         \App\Providers\WaveformServiceProvider::class,
+        TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
 
         /*
          * Application Service Providers...
