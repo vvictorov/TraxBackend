@@ -37,4 +37,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Track','user_favorites');
     }
+
+    public function image()
+    {
+        return $this->morphOne('App\Image','imageable');
+    }
 }

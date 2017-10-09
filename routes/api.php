@@ -29,6 +29,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('favorites/add','FavoritesController@add');
     Route::post('favorites/remove','FavoritesController@remove');
     Route::post('tracks', 'TracksController@store');
+    Route::post('account/uploadPicture','AccountController@uploadPicture');
     Route::put('tracks/{track}', 'TracksController@update');
     Route::delete('tracks/{track}', 'TracksController@delete');
 });
