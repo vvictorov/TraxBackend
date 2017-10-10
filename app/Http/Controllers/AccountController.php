@@ -11,13 +11,19 @@ class AccountController extends Controller
 {
     public function getAccountInfo(User $user)
     {
-        $details = [
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'image' => $user->image->url()
-        ];
-        return json_encode($details);
+        $authUser = Auth::user();
+        if($authUser && $authUser->id === $user->id){
+            $details = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'image' => $user->image->url()
+            ];
+            return response()->json($details,200);
+        }else{
+            return response()->json(['error' => 'Unauthorized'],403);
+        }
+
     }
 
     public function uploadPicture(Request $request)
@@ -26,8 +32,9 @@ class AccountController extends Controller
             'file' => 'image',
         ]);
 
-        $path = $request->file('file')->store('images');
-        $fileName = explode('/',$path)[1];
+        $file = $request->file('file');
+        $path = $file->store('public/images');
+        $fileName = explode('/',$path)[2];
         $user = Auth::user();
         if($user){
             $image = new Image();

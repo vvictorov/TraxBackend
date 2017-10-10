@@ -17,6 +17,8 @@ class AuthController extends Controller
             if (Auth::attempt(['email' => $email, 'password' => $password])) {
                 $user = Auth::user();
                 $user->token =  $user->createToken('accessToken')->accessToken;
+                $user->imageUrl = $user->image->url();
+                unset($user->image);
                 return $user;
             }else{
                 return response('Login failed! Please check your credentials!',400);
