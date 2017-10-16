@@ -16,9 +16,11 @@ class AccountController extends Controller
             $details = [
                 'id' => $user->id,
                 'name' => $user->name,
-                'email' => $user->email,
-                'image' => $user->image->url()
+                'email' => $user->email
             ];
+            if($user->image){
+                $details['image'] = $user->image->url();
+            }
             return response()->json($details,200);
         }else{
             return response()->json(['error' => 'Unauthorized'],403);
