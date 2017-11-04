@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+		// Create slugs command
+		CreateSlugsCommand::class
     ];
 
     /**
