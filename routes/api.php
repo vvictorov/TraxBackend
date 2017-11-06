@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('tracks', 'TracksController@index');
 Route::get('suggested', 'TracksController@suggested');
-Route::get('tracks/{track}', 'TracksController@get');
+Route::get('tracks/{slug}', 'TracksController@get');
 Route::post('users/authenticate', 'AuthController@authenticate');
 Route::any('search/tracks/{name}', 'TracksController@search');
 //Route::get('waveforms/test',function(){
