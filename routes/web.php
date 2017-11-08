@@ -11,7 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\View;
+
 Route::get('/', function () {
     //return view('welcome');
-    return 'Only API is available!';
+    return View::make('dist');
 });
